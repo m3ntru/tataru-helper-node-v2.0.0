@@ -53,6 +53,7 @@ function updateDialog(id, name, text, dialogData = null, translation = null) {
     if (translation) {
         name = zhtConvert(name, translation.to);
         text = zhtConvert(text, translation.to);
+        if (global.tmiStatus) global.tmiHandler.send(text);   
     }
 
     // set dialog

@@ -40,6 +40,8 @@ let isClickThrough = false;
 // mouse out check interval
 let mouseOutCheckInterval = null;
 
+const TmiHandler = require('./tmi-handler');
+
 // DOMContentLoaded
 window.addEventListener('DOMContentLoaded', () => {
     setView();
@@ -256,6 +258,22 @@ function setButton() {
     document.getElementById('img_button_clear').onclick = () => {
         document.getElementById('div_dialog').innerHTML = '';
     };
+
+    document.getElementById('img_button_twitch_chat').onclick = () => {
+        global.tmiStatus = !global.tmiStatus;
+        // ipcRenderer.send('set-config', config);
+        // ipcRenderer.send('mute-window', config.translation.autoPlay);
+
+        if (global.tmiStatus) {
+            document.getElementById('img_button_twitch_chat').setAttribute('src', './img/ui/twitch_white_24dp.svg');
+            global.tmiHandler.connect();
+            // startPlaying();
+        } else {
+            document.getElementById('img_button_twitch_chat').setAttribute('src', './img/ui/twitch_off_24dp.svg');
+            global.tmiHandler.disconnect();
+            // stopPlaying();
+        }
+    };
 }
 
 // reset view
@@ -321,6 +339,8 @@ function startApp() {
     loadJSON();
     startServer();
     requestLatestVersion();
+    global.tmiHandler = new TmiHandler();
+    global.tmiStatus = false;
 }
 
 // load json

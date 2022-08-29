@@ -11,7 +11,7 @@ class TmiHandler {
     console.log(config);
     this.connected = false;
     this.client = new tmi.Client({
-      options: {debug: true},
+      options: { debug: true },
       identity: {
         username: config.twitch.username,
         password: config.twitch.password,
@@ -41,7 +41,9 @@ class TmiHandler {
 
   async send(message) {
     if (this.connected) {
-      this.client.say(config.twitch.channel, message);
+      setTimeout(() => {
+        this.client.say(config.twitch.channel, message);
+      }, config.twitch.timeout)
     }
   }
 }

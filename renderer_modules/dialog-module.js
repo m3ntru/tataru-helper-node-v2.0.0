@@ -51,9 +51,12 @@ function appendBlankDialog(id, code) {
 function updateDialog(id, name, text, dialogData = null, translation = null) {
     // zh convert
     if (translation) {
+        console.log(dialogData);
+        console.log(translation);
         name = zhtConvert(name, translation.to);
         text = zhtConvert(text, translation.to);
-        if (global.tmiStatus) global.tmiHandler.send(text);   
+        if (global.tmiStatus && dialogData.name) 
+            global.tmiHandler.send(dialogData.name +": "+ text);
     }
 
     // set dialog

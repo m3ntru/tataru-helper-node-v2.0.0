@@ -2,6 +2,7 @@
   "twitch": {
     "username": "",
     "password": "",
-    "channel": ""
+    "channel": "",
+    "timeout": 3500
   }
 }
